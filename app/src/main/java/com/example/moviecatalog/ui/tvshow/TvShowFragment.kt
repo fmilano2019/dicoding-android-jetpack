@@ -5,13 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.moviecatalog.R
-import com.example.moviecatalog.ui.movie.MovieAdapter
 import kotlinx.android.synthetic.main.fragment_tv_show.*
 
 class TvShowsFragment : Fragment() {
+    private lateinit var tvShowViewModel: TvShowViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,15 +23,24 @@ class TvShowsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        init()
         rv_tvshow.apply {
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            adapter = MovieAdapter(
-                // Tv Show data
-                arrayListOf()
+            adapter = TvShowAdapter(
+                tvShowViewModel.getTvShowData()
             ) {
                 // To detail tv show
             }
         }
+    }
+
+    private fun init() {
+        tvShowViewModel =
+            ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory()).get(
+                TvShowViewModel::class.java
+            ).apply {
+                loadTvShowData(requireContext())
+            }
     }
 
 }

@@ -40,8 +40,9 @@ class MoviesFragment : Fragment() {
         movieViewModel =
             ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory()).get(
                 MovieViewModel::class.java
-            )
-        movieViewModel.loadMovieData(requireContext())
+            ).apply {
+                loadMovieData(requireContext())
+            }
     }
 
 }

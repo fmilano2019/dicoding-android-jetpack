@@ -20,6 +20,11 @@ class HomeActivity : AppCompatActivity() {
             0
         )
         // Setup tab viewpager
-        tl_home.setupWithViewPager(vp_home)
+        tl_home.apply {
+            setupWithViewPager(vp_home)
+            getTabAt(0)?.setIcon(R.drawable.selector_movie)
+            getTabAt(1)?.setIcon(R.drawable.selector_tvshow)
+        }
+
     }
 }

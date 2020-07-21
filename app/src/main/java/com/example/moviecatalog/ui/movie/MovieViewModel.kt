@@ -9,13 +9,13 @@ class MovieViewModel : ViewModel() {
     private var homeRepository = HomeRepository()
     private var movies = homeRepository.getMovieData()
 
-    // Load movie list from HomeRepository
+    // Load movie data
     fun loadMovieData(context: Context) {
         movies.clear()
         homeRepository.loadMovieData(context)
     }
 
-    // Get movie list
+    // Get movie data
     fun getMovieData(): ArrayList<MovieEntity> {
         return movies
     }

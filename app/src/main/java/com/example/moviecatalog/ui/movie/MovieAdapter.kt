@@ -37,6 +37,7 @@ class MovieAdapter(
             itemView.run {
                 cv_movie.setOnClickListener { clickListener(movieEntity) }
                 tv_title.text = movieEntity.title
+                tv_year.text = movieEntity.year
                 Glide.with(context)
                     .load(movieEntity.image)
                     .into(iv_image)
