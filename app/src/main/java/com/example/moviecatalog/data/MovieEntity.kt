@@ -1,5 +1,9 @@
 package com.example.moviecatalog.data
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class MovieEntity(
     var id: Int,
     var image: Int,
@@ -15,4 +19,4 @@ data class MovieEntity(
     var originalLanguage: String,
     var budget: String,
     var revenue: String
-)
+) : Parcelable

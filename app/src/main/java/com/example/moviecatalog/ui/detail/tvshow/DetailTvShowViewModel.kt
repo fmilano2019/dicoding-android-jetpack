@@ -1,11 +1,11 @@
-package com.example.moviecatalog.ui.tvshow
+package com.example.moviecatalog.ui.detail.tvshow
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.moviecatalog.data.TvShowEntity
 import com.example.moviecatalog.ui.home.HomeRepository
 
-class TvShowViewModel : ViewModel() {
+class DetailTvShowViewModel : ViewModel() {
 
     private var homeRepository = HomeRepository()
     private var tvShows = homeRepository.getTvShowData()
@@ -15,5 +15,5 @@ class TvShowViewModel : ViewModel() {
         homeRepository.loadTvShowData(context)
     }
 
-    fun getTvShowData(): ArrayList<TvShowEntity> = tvShows
+    fun getSelectedTvShowData(id: Int): TvShowEntity = tvShows[id]
 }

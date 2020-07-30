@@ -10,7 +10,6 @@ class DataDummy(private var context: Context) {
 
     fun loadMovieData(): ArrayList<MovieEntity> {
         context.resources.let {
-            // Load data from string resource
             val images: TypedArray = it.obtainTypedArray(R.array.movie_image)
             val titles = it.getStringArray(R.array.movie_title)
             val years = it.getStringArray(R.array.movie_year)
@@ -25,7 +24,6 @@ class DataDummy(private var context: Context) {
             val budgets = it.getStringArray(R.array.movie_budget)
             val revenues = it.getStringArray(R.array.movie_revenue)
 
-            // Add each object to movie list
             val movies = arrayListOf<MovieEntity>()
             titles.forEachIndexed { index, title ->
                 val movie = MovieEntity(
@@ -53,7 +51,6 @@ class DataDummy(private var context: Context) {
 
     fun loadTvShowData(): ArrayList<TvShowEntity> {
         context.resources.let {
-            // Load data from string resource
             val images = it.obtainTypedArray(R.array.tvshow_image)
             val titles = it.getStringArray(R.array.tvshow_title)
             val years = it.getStringArray(R.array.tvshow_year)
@@ -67,7 +64,6 @@ class DataDummy(private var context: Context) {
             val types = it.getStringArray(R.array.tvshow_type)
             val originalLanguages = it.getStringArray(R.array.tvshow_original_language)
 
-            //Add each object to tvshow list
             val tvShows = arrayListOf<TvShowEntity>()
             titles.forEachIndexed { index, title ->
                 val tvShow = TvShowEntity(

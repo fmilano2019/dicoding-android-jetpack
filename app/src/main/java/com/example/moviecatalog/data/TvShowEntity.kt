@@ -1,5 +1,9 @@
 package com.example.moviecatalog.data
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class TvShowEntity(
     var id: Int,
     var image: Int,
@@ -14,4 +18,4 @@ data class TvShowEntity(
     var network: String,
     var type: String,
     var originalLanguage: String
-)
+) : Parcelable

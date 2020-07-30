@@ -1,5 +1,6 @@
 package com.example.moviecatalog.ui.tvshow
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,9 +9,15 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.moviecatalog.R
+import com.example.moviecatalog.ui.detail.tvshow.DetailTvShowActivity
 import kotlinx.android.synthetic.main.fragment_tv_show.*
 
 class TvShowsFragment : Fragment() {
+
+    companion object {
+        const val EXTRA_TVSHOW = "extra_tvshow"
+    }
+
     private lateinit var tvShowViewModel: TvShowViewModel
 
     override fun onCreateView(
@@ -24,12 +31,15 @@ class TvShowsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         init()
-        rv_tvshow.apply {
+        rvTvShow.apply {
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             adapter = TvShowAdapter(
                 tvShowViewModel.getTvShowData()
             ) {
-                // To detail tv show
+                Intent(requireActivity(), DetailTvShowActivity::class.java).apply {
+                    putExtra(EXTRA_TVSHOW, it.id)
+                    startActivity(this)
+                }
             }
         }
     }
@@ -42,5 +52,4 @@ class TvShowsFragment : Fragment() {
                 loadTvShowData(requireContext())
             }
     }
-
 }

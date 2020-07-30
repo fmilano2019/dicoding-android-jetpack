@@ -2,15 +2,12 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cv_tvshow"
+    android:id="@+id/cvTvShow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    android:background="?attr/selectableItemBackground"
-    android:orientation="vertical"
     app:cardCornerRadius="4dp"
     app:cardElevation="4dp"
-    app:cardMaxElevation="4dp"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,18 +15,18 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_image"
+            android:id="@+id/ivImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/content_description_movie_poster"
+            android:contentDescription="@string/content_description_tvshow_poster"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/poster_aquaman" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -38,15 +35,15 @@
             android:textColor="@color/colorDark"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/tv_year"
+            app:layout_constraintBottom_toBottomOf="@id/tvYear"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_image"
+            app:layout_constraintTop_toBottomOf="@id/ivImage"
             app:layout_constraintVertical_bias="0.0"
             tools:text="Aquaman " />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_year"
+            android:id="@+id/tvYear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -57,7 +54,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
             tools:text="(2019)" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

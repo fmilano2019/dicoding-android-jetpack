@@ -20,9 +20,7 @@ class TvShowAdapter(
         )
     }
 
-    override fun getItemCount(): Int {
-        return tvShows.size
-    }
+    override fun getItemCount(): Int = tvShows.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(tvShows[position], clickListener)
@@ -35,15 +33,13 @@ class TvShowAdapter(
             clickListener: (TvShowEntity) -> Unit
         ) {
             itemView.run {
-                cv_tvshow.setOnClickListener { clickListener(tvShowEntity) }
-                tv_title.text = tvShowEntity.title
-                tv_year.text = tvShowEntity.year
+                cvTvShow.setOnClickListener { clickListener(tvShowEntity) }
+                tvTitle.text = tvShowEntity.title
+                tvYear.text = tvShowEntity.year
                 Glide.with(context)
                     .load(tvShowEntity.image)
-                    .into(iv_image)
+                    .into(ivImage)
             }
         }
-
     }
-
 }

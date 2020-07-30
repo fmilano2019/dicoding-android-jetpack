@@ -1,11 +1,11 @@
-package com.example.moviecatalog.ui.movie
+package com.example.moviecatalog.ui.detail.movie
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.moviecatalog.data.MovieEntity
 import com.example.moviecatalog.ui.home.HomeRepository
 
-class MovieViewModel : ViewModel() {
+class DetailMovieViewModel : ViewModel() {
 
     private var homeRepository = HomeRepository()
     private var movies = homeRepository.getMovieData()
@@ -15,5 +15,5 @@ class MovieViewModel : ViewModel() {
         homeRepository.loadMovieData(context)
     }
 
-    fun getMovieData(): ArrayList<MovieEntity> = movies
+    fun getSelectedMovieData(id: Int): MovieEntity = movies[id]
 }

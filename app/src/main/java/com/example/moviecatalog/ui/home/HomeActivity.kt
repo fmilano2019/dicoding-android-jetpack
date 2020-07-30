@@ -12,19 +12,16 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        // Setup viewpager adapter
-        vp_home.adapter = HomeViewPagerAdapter(
+        vpHome.adapter = HomeViewPagerAdapter(
             arrayListOf("Movies", "Tv Shows"),
             arrayListOf(MoviesFragment(), TvShowsFragment()),
             supportFragmentManager,
             0
         )
-        // Setup tab viewpager
-        tl_home.apply {
-            setupWithViewPager(vp_home)
+        tabHome.apply {
+            setupWithViewPager(vpHome)
             getTabAt(0)?.setIcon(R.drawable.selector_movie)
             getTabAt(1)?.setIcon(R.drawable.selector_tvshow)
         }
-
     }
 }

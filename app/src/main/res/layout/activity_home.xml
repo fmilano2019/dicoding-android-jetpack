@@ -19,7 +19,6 @@
             app:liftOnScroll="true">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/tb_home"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
@@ -27,7 +26,7 @@
                 app:title="@string/app_name" />
 
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tl_home"
+                android:id="@+id/tabHome"
                 style="@style/Widget.MaterialComponents.TabLayout.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,13 +34,13 @@
                 app:tabInlineLabel="true"
                 app:tabRippleColor="@color/colorAccentTransparent"
                 app:tabSelectedTextColor="@color/colorAccent"
-                app:tabTextColor="@color/colorAccentTransparent"
+                app:tabTextColor="@color/colorAccentExtraTransparent"
                 app:tabUnboundedRipple="false" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/vp_home"
+            android:id="@+id/vpHome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />

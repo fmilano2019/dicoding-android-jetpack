@@ -20,9 +20,7 @@ class MovieAdapter(
         )
     }
 
-    override fun getItemCount(): Int {
-        return movies.size
-    }
+    override fun getItemCount(): Int = movies.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(movies[position], clickListener)
@@ -35,15 +33,13 @@ class MovieAdapter(
             clickListener: (MovieEntity) -> Unit
         ) {
             itemView.run {
-                cv_movie.setOnClickListener { clickListener(movieEntity) }
-                tv_title.text = movieEntity.title
-                tv_year.text = movieEntity.year
+                cvMovie.setOnClickListener { clickListener(movieEntity) }
+                tvTitle.text = movieEntity.title
+                tvYear.text = movieEntity.year
                 Glide.with(context)
                     .load(movieEntity.image)
-                    .into(iv_image)
+                    .into(ivImage)
             }
         }
-
     }
-
 }
