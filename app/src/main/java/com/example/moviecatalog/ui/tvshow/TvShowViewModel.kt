@@ -1,19 +1,18 @@
 package com.example.moviecatalog.ui.tvshow
 
-import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.moviecatalog.data.TvShowEntity
-import com.example.moviecatalog.ui.home.HomeRepository
+import com.example.moviecatalog.data.source.TvShowRepository
+import com.example.moviecatalog.data.source.local.entity.TvShowEntity
 
-class TvShowViewModel : ViewModel() {
+class TvShowViewModel(private var repository: TvShowRepository) : ViewModel() {
 
-    private var homeRepository = HomeRepository()
-    private var tvShows = homeRepository.getTvShowData()
+    private var popularTvShows = repository.getPopularTvShows()
+    private var errorMessage = repository.getErrorMessage()
 
-    fun loadTvShowData(context: Context) {
-        tvShows.clear()
-        homeRepository.loadTvShowData(context)
-    }
+    fun getErrorMessage(): LiveData<String> = errorMessage
 
-    fun getTvShowData(): ArrayList<TvShowEntity> = tvShows
+    fun loadPopularTvShows() = repository.loadPopularTvShows()
+
+    fun getPopularTvShows(): LiveData<ArrayList<TvShowEntity>> = popularTvShows
 }

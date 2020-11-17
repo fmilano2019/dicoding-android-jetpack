@@ -23,7 +23,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/poster_aquaman" />
+            tools:src="@drawable/poster_got" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTitle"

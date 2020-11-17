@@ -1,19 +1,18 @@
 package com.example.moviecatalog.ui.movie
 
-import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.moviecatalog.data.MovieEntity
-import com.example.moviecatalog.ui.home.HomeRepository
+import com.example.moviecatalog.data.source.local.entity.MovieEntity
+import com.example.moviecatalog.data.source.MovieRepository
 
-class MovieViewModel : ViewModel() {
+class MovieViewModel(private var repository: MovieRepository) : ViewModel() {
 
-    private var homeRepository = HomeRepository()
-    private var movies = homeRepository.getMovieData()
+    private var popularMovies = repository.getPopularMovies()
+    private var errorMessage = repository.getErrorMessage()
 
-    fun loadMovieData(context: Context) {
-        movies.clear()
-        homeRepository.loadMovieData(context)
-    }
+    fun getErrorMessage(): LiveData<String> = errorMessage
 
-    fun getMovieData(): ArrayList<MovieEntity> = movies
+    fun loadPopularMovies() = repository.loadPopularMovies()
+
+    fun getPopularMovies(): LiveData<ArrayList<MovieEntity>> = popularMovies
 }

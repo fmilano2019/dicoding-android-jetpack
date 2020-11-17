@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.MovieEntity
+import com.example.moviecatalog.data.source.local.entity.MovieEntity
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter(
@@ -26,6 +26,11 @@ class MovieAdapter(
         holder.bind(movies[position], clickListener)
     }
 
+    fun updateMovies(newMovies: ArrayList<MovieEntity>) {
+        movies = newMovies
+        notifyDataSetChanged()
+    }
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(
@@ -38,6 +43,7 @@ class MovieAdapter(
                 tvYear.text = movieEntity.year
                 Glide.with(context)
                     .load(movieEntity.image)
+                    .override(400, 600)
                     .into(ivImage)
             }
         }

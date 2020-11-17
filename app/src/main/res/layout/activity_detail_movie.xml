@@ -7,6 +7,7 @@
     tools:context=".ui.detail.movie.DetailMovieActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorDetailMovie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,336 +18,440 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/tbDetail"
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:navigationIcon="@drawable/ic_baseline_arrow_back_24" />
+                android:layout_height="match_parent"
+                app:contentScrim="@color/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:statusBarScrim="@color/colorPrimary">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="48dp"
+                    app:layout_collapseMode="pin">
+
+                    <com.google.android.material.appbar.MaterialToolbar
+                        android:id="@+id/tbDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:elevation="0dp"
+                        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:navigationIcon="@drawable/ic_baseline_arrow_back_24" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cv_container_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="48dp"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="4dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tbDetail">
+
+                        <ImageView
+                            android:id="@+id/ivImage"
+                            android:layout_width="128dp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="@string/content_description_detail_poster"
+                            android:visibility="gone"
+                            tools:src="@drawable/poster_got" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@id/cv_container_image"
+                        app:layout_constraintTop_toTopOf="@id/cv_container_image"
+                        tools:text="Game of Thrones" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvYear"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:textColor="@color/colorAccentTransparent"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@id/cv_container_image"
+                        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                        tools:text="(2019)" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshDetailMovie"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="32dp">
+                android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/ivImage"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/content_description_detail_poster"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@drawable/poster_got" />
+                    android:layout_height="match_parent"
+                    android:paddingBottom="48dp">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/colorDark"
-                    android:textSize="32sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ivImage"
-                    tools:text="Game of Thrones" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvUserscore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="48dp"
+                        android:textColor="@color/colorDark"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toTopOf="@id/tv_nametag_userscore"
+                        app:layout_constraintEnd_toEndOf="@id/tv_nametag_userscore"
+                        app:layout_constraintStart_toStartOf="@id/tv_nametag_userscore"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="80%" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvYear"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/colorDarkTransParent"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvTitle"
-                    tools:text="(2019)" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_nametag_userscore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:text="@string/user_score"
+                        android:textColor="@color/colorDarkTransParent"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvUserscore" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvUserscore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:textColor="@color/colorDark"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/tv_nametag_userscore"
-                    app:layout_constraintEnd_toEndOf="@id/tv_nametag_userscore"
-                    app:layout_constraintStart_toStartOf="@id/tv_nametag_userscore"
-                    app:layout_constraintTop_toBottomOf="@id/tvYear"
-                    tools:text="80%" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvAgeRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="48dp"
+                        android:textColor="@color/colorDark"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toTopOf="@id/tv_nametag_agerating"
+                        app:layout_constraintEnd_toEndOf="@id/tv_nametag_agerating"
+                        app:layout_constraintStart_toStartOf="@id/tv_nametag_agerating"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="PG" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_nametag_userscore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/user_score"
-                    android:textColor="@color/colorDarkTransParent"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvUserscore" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_nametag_agerating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/age_rating"
+                        android:textColor="@color/colorDarkTransParent"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="@id/tv_nametag_duration"
+                        app:layout_constraintStart_toStartOf="@id/tv_nametag_userscore"
+                        app:layout_constraintTop_toBottomOf="@id/tvAgeRating" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvAgeRating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:textColor="@color/colorDark"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/tv_nametag_agerating"
-                    app:layout_constraintEnd_toEndOf="@id/tv_nametag_agerating"
-                    app:layout_constraintStart_toStartOf="@id/tv_nametag_agerating"
-                    app:layout_constraintTop_toBottomOf="@id/tvYear"
-                    tools:text="PG" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvDuration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="48dp"
+                        android:textColor="@color/colorDark"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toTopOf="@id/tv_nametag_duration"
+                        app:layout_constraintEnd_toEndOf="@id/tv_nametag_duration"
+                        app:layout_constraintStart_toStartOf="@id/tv_nametag_duration"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="1hr 45min" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_nametag_agerating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/age_rating"
-                    android:textColor="@color/colorDarkTransParent"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="@id/tv_nametag_duration"
-                    app:layout_constraintStart_toStartOf="@id/tv_nametag_userscore"
-                    app:layout_constraintTop_toBottomOf="@id/tvAgeRating" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_nametag_duration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="24dp"
+                        android:text="@string/duration"
+                        android:textColor="@color/colorDarkTransParent"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvDuration" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvDuration"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:textColor="@color/colorDark"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/tv_nametag_duration"
-                    app:layout_constraintEnd_toEndOf="@id/tv_nametag_duration"
-                    app:layout_constraintStart_toStartOf="@id/tv_nametag_duration"
-                    app:layout_constraintTop_toBottomOf="@id/tvYear"
-                    tools:text="1hr 45min" />
+                    <View
+                        android:id="@+id/view_end_of_userscore"
+                        android:layout_width="1dp"
+                        android:layout_height="48dp"
+                        android:alpha="0.12"
+                        android:background="@color/colorDark"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_nametag_userscore"
+                        app:layout_constraintEnd_toStartOf="@id/tv_nametag_agerating"
+                        app:layout_constraintStart_toEndOf="@id/tv_nametag_userscore"
+                        app:layout_constraintTop_toTopOf="@id/tvUserscore" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_nametag_duration"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/duration"
-                    android:textColor="@color/colorDarkTransParent"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvDuration" />
+                    <View
+                        android:id="@+id/view_start_of_duration"
+                        android:layout_width="1dp"
+                        android:layout_height="48dp"
+                        android:alpha="0.12"
+                        android:background="@color/colorDark"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_nametag_duration"
+                        app:layout_constraintEnd_toStartOf="@id/tv_nametag_duration"
+                        app:layout_constraintStart_toEndOf="@id/tv_nametag_agerating"
+                        app:layout_constraintTop_toTopOf="@id/tvDuration" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="32dp"
-                    android:alpha="0.12"
-                    android:background="@color/colorDark"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_nametag_userscore"
-                    app:layout_constraintEnd_toStartOf="@id/tv_nametag_agerating"
-                    app:layout_constraintStart_toEndOf="@id/tv_nametag_userscore"
-                    app:layout_constraintTop_toTopOf="@id/tvUserscore" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvTag"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="48dp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_nametag_userscore" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="32dp"
-                    android:alpha="0.12"
-                    android:background="@color/colorDark"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_nametag_duration"
-                    app:layout_constraintEnd_toStartOf="@id/tv_nametag_duration"
-                    app:layout_constraintStart_toEndOf="@id/tv_nametag_agerating"
-                    app:layout_constraintTop_toTopOf="@id/tvDuration" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_nametag_overview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="48dp"
+                        android:layout_marginEnd="24dp"
+                        android:text="@string/overview"
+                        android:textColor="@color/colorDark"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rvTag" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvTag"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_nametag_userscore" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvOverview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="48dp"
+                        android:layout_marginEnd="24dp"
+                        android:lineSpacingExtra="16sp"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/colorDarkTransParent"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_nametag_overview"
+                        tools:text="@string/dummy_long_text" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_nametag_overview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/overview"
-                    android:textColor="@color/colorDark"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rvTag" />
+                    <View
+                        android:id="@+id/view_top_of_movie_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="48dp"
+                        android:alpha="0.12"
+                        android:background="@color/colorDark"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toTopOf="@id/tv_nametag_movie_info"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvOverview" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvOverview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:lineSpacingExtra="8sp"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorDarkTransParent"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_nametag_overview"
-                    tools:text="@string/dummy_long_text" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_nametag_movie_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="48dp"
+                        android:layout_marginEnd="24dp"
+                        android:text="@string/movie_info"
+                        android:textColor="@color/colorDark"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view_top_of_movie_info" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_nametag_releasedate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
-                    android:text="@string/release_date"
-                    android:textColor="@color/colorDark"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvOverview" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_nametag_releasedate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="48dp"
+                        android:text="@string/release_date"
+                        android:textColor="@color/colorDarkTransParent"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_nametag_movie_info" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvReleaseDate"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/colorDarkTransParent"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/guideline"
-                    app:layout_constraintTop_toTopOf="@id/tv_nametag_releasedate"
-                    tools:text="24/05/2019 (US)" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvReleaseDate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="24dp"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/colorDark"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/guideline"
+                        app:layout_constraintTop_toTopOf="@id/tv_nametag_releasedate"
+                        tools:text="24/05/2019 (US)" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_nametag_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/status"
-                    android:textColor="@color/colorDark"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvReleaseDate" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_nametag_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="48dp"
+                        android:text="@string/status"
+                        android:textColor="@color/colorDarkTransParent"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvReleaseDate" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvStatus"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/colorDarkTransParent"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/guideline"
-                    app:layout_constraintTop_toTopOf="@id/tv_nametag_status"
-                    tools:text="Released" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvStatus"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="24dp"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/colorDark"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/guideline"
+                        app:layout_constraintTop_toTopOf="@id/tv_nametag_status"
+                        tools:text="Released" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_nametag_originallanguage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/original_language"
-                    android:textColor="@color/colorDark"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvStatus" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_nametag_originallanguage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="48dp"
+                        android:text="@string/original_language"
+                        android:textColor="@color/colorDarkTransParent"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvStatus" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvOriginalLanguage"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/colorDarkTransParent"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/guideline"
-                    app:layout_constraintTop_toTopOf="@id/tv_nametag_originallanguage"
-                    tools:text="English" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvOriginalLanguage"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="24dp"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/colorDark"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/guideline"
+                        app:layout_constraintTop_toTopOf="@id/tv_nametag_originallanguage"
+                        tools:text="English" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_nametag_budget"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/budget"
-                    android:textColor="@color/colorDark"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvOriginalLanguage" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_nametag_budget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="48dp"
+                        android:text="@string/budget"
+                        android:textColor="@color/colorDarkTransParent"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvOriginalLanguage" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvBudget"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/colorDarkTransParent"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/guideline"
-                    app:layout_constraintTop_toTopOf="@id/tv_nametag_budget"
-                    tools:text="$200.000.000,00" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvBudget"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="24dp"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/colorDark"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/guideline"
+                        app:layout_constraintTop_toTopOf="@id/tv_nametag_budget"
+                        tools:text="$200.000.000,00" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_nametag_revenue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/revenue"
-                    android:textColor="@color/colorDark"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvBudget" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_nametag_revenue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="48dp"
+                        android:text="@string/revenue"
+                        android:textColor="@color/colorDarkTransParent"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvBudget" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvRevenue"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/colorDarkTransParent"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/guideline"
-                    app:layout_constraintTop_toTopOf="@id/tv_nametag_revenue"
-                    tools:text="$700.000.000,00" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvRevenue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="24dp"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/colorDark"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/guideline"
+                        app:layout_constraintTop_toTopOf="@id/tv_nametag_revenue"
+                        tools:text="$700.000.000,00" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.5" />
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.5" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.core.widget.NestedScrollView>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <ProgressBar
+        android:id="@+id/pbDetailMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="48dp"
+        android:indeterminateTint="@color/colorBlue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

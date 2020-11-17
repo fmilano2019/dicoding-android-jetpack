@@ -6,50 +6,62 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.moviecatalog.R
 import com.example.moviecatalog.ui.detail.movie.DetailMovieActivity
 import kotlinx.android.synthetic.main.fragment_movie.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MoviesFragment : Fragment() {
 
     companion object {
-        const val EXTRA_MOVIE = "extra_movie"
+        const val EXTRA_MOVIE_ID = "extra_movie"
     }
 
-    private lateinit var movieViewModel: MovieViewModel
+    private val movieViewModel: MovieViewModel by viewModel()
+    private lateinit var movieAdapter: MovieAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        movieAdapter = MovieAdapter(arrayListOf()) {
+            Intent(requireActivity(), DetailMovieActivity::class.java).apply {
+                putExtra(EXTRA_MOVIE_ID, it.id)
+                startActivity(this)
+            }
+        }
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_movie, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        init()
-        rvMovie.apply {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        swipeRefreshMovies.setOnRefreshListener { movieViewModel.loadPopularMovies() }
+        rvMovies.apply {
+            setHasFixedSize(true)
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            adapter = MovieAdapter(
-                movieViewModel.getMovieData()
-            ) {
-                Intent(requireActivity(), DetailMovieActivity::class.java).apply {
-                    putExtra(EXTRA_MOVIE, it.id)
-                    startActivity(this)
-                }
-            }
+            adapter = movieAdapter
         }
+        subscribeUI()
     }
 
-    private fun init() {
-        movieViewModel =
-            ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory()).get(
-                MovieViewModel::class.java
-            ).apply {
-                loadMovieData(requireContext())
-            }
+    private fun subscribeUI() {
+        movieViewModel.run {
+            loadPopularMovies()
+            getPopularMovies().observe(viewLifecycleOwner, {
+                if (it != null) {
+                    movieAdapter.updateMovies(it)
+                    swipeRefreshMovies.isRefreshing = false
+                    pbMovies.visibility = View.GONE
+                }
+            })
+            getErrorMessage().observe(viewLifecycleOwner, {
+                if (it != null) {
+                    swipeRefreshMovies.isRefreshing = false
+                    pbMovies.visibility = View.GONE
+                }
+            })
+        }
     }
 }
